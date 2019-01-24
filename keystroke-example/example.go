@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	p := kstroke.New()
+	p := keystroke.New()
 
 	p.On("Alt+Shift+Z", func() {
 		yo.Ok("Activated")
