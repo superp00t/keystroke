@@ -158,6 +158,8 @@ int appleKeyToJSkey(int input)
 
 CGEventRef myCGEventCallback (CGEventTapProxy proxy, CGEventType type, CGEventRef event, void *refcon)
 {
+  printf("apple\n");
+
   if (type != kCGEventFlagsChanged)
   {
     return event;
@@ -168,7 +170,7 @@ CGEventRef myCGEventCallback (CGEventTapProxy proxy, CGEventType type, CGEventRe
   CGKeyCode keyCode = (CGKeyCode) CGEventGetIntegerValueField(event, kCGKeyboardEventKeycode);
 
   int jsCode = appleKeyToJSkey((int)keyCode);
-  if (jsCode > 0)
+  if (jsCode > -1)
   {
     constant_cb(constant_arg, (uint8_t)jsCode, state);
   }
