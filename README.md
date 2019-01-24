@@ -27,15 +27,15 @@ import (
 )
 
 func main() {
-	k := keystroke.New()
+  k := keystroke.New()
 
-	k.On("Alt+Shift+Z", func() {
-		fmt.Println("Key combination invoked!")
-	})
+  k.On("Alt+Shift+Z", func() {
+    fmt.Println("Key combination invoked!")
+  })
 
-	k.On("N+J+K", func() {
-		os.Exit()
-	})
+  k.On("N+J+K", func() {
+    os.Exit()
+  })
 
   err := k.Run()
   if err != nil {
