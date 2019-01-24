@@ -1,6 +1,6 @@
 package core
 
-// #cgo !darwin, !windows LDFLAGS: -lX11 
+// #cgo !darwin,!windows LDFLAGS: -lX11 
 // #cgo darwin CFLAGS: -framework ApplicationServices
 // #include "kstroke.h"
 import "C"
