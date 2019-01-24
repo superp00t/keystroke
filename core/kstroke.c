@@ -47,28 +47,6 @@ int kstroke_listen(kstroke_cb cb, uintptr_t arg)
 static kstroke_cb constant_cb = NULL;
 static uintptr_t constant_arg = 0;
 
-void kstroke_listen(kstroke_cb cb, uintptr_t arg)
-{
-  constant_cb = cb;
-  constant_arg = arg;
-
-  CGEventFlags oldFlags = CGEventSourceFlagsState(kCGEventSourceStateCombinedSessionState);
-
-  CGEventMask eventMask = (CGEventMaskBit(kCGEventKeyDown) | CGEventMaskBit(kCGEventFlagsChanged));
-  CFMachPortRef eventTap = CGEventTapCreate(kCGSessionEventTap, kCGHeadInsertEventTap, 0, eventMask, myCGEventCallback, &oldFlags);
-  
-  if (!eventTap) {
-    fprintf(stderr, "failed to create event tap\nyou need to enable \"Enable access for assitive devices\" in Universal Access preference panel.");
-    return -2;
-  }
-  
-  CFRunLoopSourceRef runLoopSource = CFMachPortCreateRunLoopSource(kCFAllocatorDefault, eventTap, 0);
-  CFRunLoopAddSource(CFRunLoopGetCurrent(), runLoopSource, kCFRunLoopCommonModes);
-  CGEventTapEnable(eventTap, true);
-  
-  CFRunLoopRun();
-}
-
 int appleKeyToJSkey(int input)
 {
   switch (input)
@@ -109,8 +87,8 @@ int appleKeyToJSkey(int input)
     case kVK_ANSI_X: return KSTROKE_KEY_X;
     case kVK_ANSI_Y: return KSTROKE_KEY_Y;
     case kVK_ANSI_Z: return KSTROKE_KEY_Z;
-    case kVK_ANSI_LeftBracket: return KSTROKE_KEY_OPENBRACKET;
-    case kVK_ANSI_RightBracket: return KSTROKE_KEY_CLOSEBRACKET;
+    case kVK_ANSI_LeftBracket: return KSTROKE_KEY_OPEN_BRACKET;
+    case kVK_ANSI_RightBracket: return KSTROKE_KEY_CLOSE_BRACKET;
     case kVK_ANSI_Quote: return KSTROKE_KEY_SINGLE_QUOTE;
     case kVK_ANSI_Semicolon: return KSTROKE_KEY_SEMI_COLON;
     case kVK_ANSI_Backslash: return KSTROKE_KEY_BACKSLASH;
@@ -194,6 +172,28 @@ CGEventRef myCGEventCallback (CGEventTapProxy proxy, CGEventType type, CGEventRe
   }
 
   return event;
+}
+
+void kstroke_listen(kstroke_cb cb, uintptr_t arg)
+{
+  constant_cb = cb;
+  constant_arg = arg;
+
+  CGEventFlags oldFlags = CGEventSourceFlagsState(kCGEventSourceStateCombinedSessionState);
+
+  CGEventMask eventMask = (CGEventMaskBit(kCGEventKeyDown) | CGEventMaskBit(kCGEventFlagsChanged));
+  CFMachPortRef eventTap = CGEventTapCreate(kCGSessionEventTap, kCGHeadInsertEventTap, 0, eventMask, myCGEventCallback, &oldFlags);
+  
+  if (!eventTap) {
+    fprintf(stderr, "failed to create event tap\nyou need to enable \"Enable access for assitive devices\" in Universal Access preference panel.");
+    return -2;
+  }
+  
+  CFRunLoopSourceRef runLoopSource = CFMachPortCreateRunLoopSource(kCFAllocatorDefault, eventTap, 0);
+  CFRunLoopAddSource(CFRunLoopGetCurrent(), runLoopSource, kCFRunLoopCommonModes);
+  CGEventTapEnable(eventTap, true);
+  
+  CFRunLoopRun();
 }
 
 // Linux/OpenBSD/FreeBSD/Dragonfly (X Window System)
