@@ -158,9 +158,10 @@ int appleKeyToJSkey(int input)
 
 CGEventRef myCGEventCallback (CGEventTapProxy proxy, CGEventType type, CGEventRef event, void *refcon)
 {
-  printf("apple %d\n", type == kCGEventFlagsChanged);
+  int check = (type != kCGEventKeyDown) && (type != kCGEventKeyUp);
+  printf("apple %d\n", check);
 
-  if (type != kCGEventFlagsChanged)
+  if (check)
   {
     return event;
   }
