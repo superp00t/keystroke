@@ -151,6 +151,8 @@ int appleKeyToJSkey(int input)
     case kVK_DownArrow: return KSTROKE_KEY_DOWN_ARROW;
   }
 
+  fprintf(stderr, "[Keystroke MacOS error]: unknown key code %d (0x%XX)\n", input, input);
+
   return -1;
 }
 
