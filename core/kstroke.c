@@ -163,6 +163,7 @@ CGEventRef myCGEventCallback (CGEventTapProxy proxy, CGEventType type, CGEventRe
 
   if (check)
   {
+    printf("strange type (0x%lX) %d\n", type, type);
     return event;
   }
 
