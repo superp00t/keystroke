@@ -11,7 +11,7 @@ keystroke aims to be a simple, cross-platform Cgo library for specifying global 
 
 # TODO
 
-- Test on Windows 
+- Test on Windows ✓
 - Test on Linux ❌ 
 - Test on Mac OS ❌
 
@@ -23,7 +23,7 @@ package main
 import (
   "fmt"
 
-	"github.com/superp00t/keystroke"
+  "github.com/superp00t/keystroke"
 )
 
 func main() {
