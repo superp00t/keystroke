@@ -174,7 +174,7 @@ CGEventRef myCGEventCallback (CGEventTapProxy proxy, CGEventType type, CGEventRe
   return event;
 }
 
-void kstroke_listen(kstroke_cb cb, uintptr_t arg)
+int kstroke_listen(kstroke_cb cb, uintptr_t arg)
 {
   constant_cb = cb;
   constant_arg = arg;
@@ -194,6 +194,8 @@ void kstroke_listen(kstroke_cb cb, uintptr_t arg)
   CGEventTapEnable(eventTap, true);
   
   CFRunLoopRun();
+
+  return 0;
 }
 
 // Linux/OpenBSD/FreeBSD/Dragonfly (X Window System)
