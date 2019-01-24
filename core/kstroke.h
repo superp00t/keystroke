@@ -126,7 +126,7 @@ int kstroke_listen(kstroke_cb cb, uintptr_t arg);
 #define KSTROKE_KEY_GRAVE_ACCENT	192
 #define KSTROKE_KEY_OPEN_BRACKET	219
 #define KSTROKE_KEY_BACKSLASH	220
-#define KSTROKE_KEY_CLOSEBRACKET	221
+#define KSTROKE_KEY_CLOSE_BRACKET	221
 #define KSTROKE_KEY_SINGLE_QUOTE	222
 
 #endif
