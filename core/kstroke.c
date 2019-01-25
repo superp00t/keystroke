@@ -171,7 +171,7 @@ CGEventRef myCGEventCallback (CGEventTapProxy proxy, CGEventType type, CGEventRe
   printf("type data: %d\n", type);
 
   // Apple uses a different GCEventType for Alt, Shift, and Ctrl... for some reason ಠ_ಠ
-  if (type == kGCEventFlagsChanged)
+  if (type == kCGEventFlagsChanged)
   {
     if (modifierState[jsCode])
     {
