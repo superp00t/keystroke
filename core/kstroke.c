@@ -194,7 +194,7 @@ CGEventRef myCGEventCallback (CGEventTapProxy proxy, CGEventType type, CGEventRe
     return event;
   }
 
-  bool state = (type != kCGEventKeyDown);
+  bool state = (type != kCGEventKeyUp);
 
   if (keyState[jsCode] && !state)
   {
