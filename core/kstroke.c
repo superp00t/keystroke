@@ -25,7 +25,6 @@ int kstroke_listen(kstroke_cb cb, uintptr_t arg)
       {
         state[i] = 0;
         cb(arg, i, 0);
-        // printf("press\n");
         continue;
       }
 
@@ -167,8 +166,6 @@ CGEventRef myCGEventCallback (CGEventTapProxy proxy, CGEventType type, CGEventRe
   {
     return event;
   }
-
-  printf("type data: %d\n", type);
 
   // Apple uses a different GCEventType for Alt, Shift, and Ctrl... for some reason ಠ_ಠ
   if (type == kCGEventFlagsChanged)

@@ -5,7 +5,6 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/superp00t/etc/yo"
 	"github.com/superp00t/keystroke/core"
 )
 
@@ -109,14 +108,12 @@ func (p *Processor) matchAndDispatch() {
 
 func (p *Processor) event(ev core.Event) int {
 	isint := p.interested(Key(ev.Key))
-	yo.Ok(Key(ev.Key), ev.State)
 	if !isint {
 		return 0
 	}
 
 	if ev.State == true {
 		p.pressed = append(p.pressed, Key(ev.Key))
-		yo.Ok("Currently pressed", p.pressed)
 		p.matchAndDispatch()
 	} else {
 		for _, v := range p.pressed {
