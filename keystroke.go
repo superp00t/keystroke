@@ -109,7 +109,8 @@ func (p *Processor) matchAndDispatch() {
 
 func (p *Processor) event(ev core.Event) int {
 	isint := p.interested(Key(ev.Key))
-	yo.Warn("interested in", Key(ev.Key), isint)
+	yo.Ok(Key(ev.Key))
+	yo.Spew(p.pressed)
 	if !isint {
 		return 0
 	}
