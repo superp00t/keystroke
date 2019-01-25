@@ -7,13 +7,14 @@ keystroke aims to be a simple, cross-platform Cgo library for specifying global 
 # Requirements
 
 - C Compiler
+- on Mac OS: run process as root, or whitelist app in Privacy settings
 - Linux/FreeBSD/Dragonfly only: x11 development headers
 
 # TODO
 
-- Test on Windows ✓
+- Tested on Windows ✓
+- Tested on Mac OS ✓
 - Test on Linux ❌ 
-- Test on Mac OS ❌
 
 # Example
 
@@ -23,7 +24,7 @@ package main
 import (
   "fmt"
   "os"
-  
+
   "github.com/superp00t/keystroke"
 )
 
@@ -35,7 +36,8 @@ func main() {
   })
 
   k.On("N+J+K", func() {
-    os.Exit()
+    fmt.Println("Exiting")
+    os.Exit(0)
   })
 
   err := k.Run()
