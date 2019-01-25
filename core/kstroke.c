@@ -156,7 +156,7 @@ int appleKeyToJSkey(int input)
   return -1;
 }
 
-static bool modifierState[KSTROKE_KEYSPACE];
+static bool keyState[KSTROKE_KEYSPACE];
 
 CGEventRef myCGEventCallback (CGEventTapProxy proxy, CGEventType type, CGEventRef event, void *refcon)
 {
@@ -173,14 +173,14 @@ CGEventRef myCGEventCallback (CGEventTapProxy proxy, CGEventType type, CGEventRe
   // Apple uses a different GCEventType for Alt, Shift, and Ctrl... for some reason ಠ_ಠ
   if (type == kCGEventFlagsChanged)
   {
-    if (modifierState[jsCode])
+    if (keyState[jsCode])
     {
-      modifierState[jsCode] = false;
+      keyState[jsCode] = false;
       constant_cb(constant_arg, (uint8_t)jsCode, false);
     }
     else
     {
-      modifierState[jsCode] = true;
+      keyState[jsCode] = true;
       constant_cb(constant_arg, (uint8_t)jsCode, true);
     }
 
@@ -195,9 +195,21 @@ CGEventRef myCGEventCallback (CGEventTapProxy proxy, CGEventType type, CGEventRe
   }
 
   bool state = (type != kCGEventKeyDown);
-  
-  constant_cb(constant_arg, (uint8_t)jsCode, state);
 
+  if (keyState[jsCode] && !state)
+  {
+    keyState[jsCode] = false;
+    constant_cb(constant_arg, (uint8_t)jsCode, state);
+    return event;
+  }
+
+  if (!keyState[jsCode] && state)
+  {
+    keyState[jsCode] = true;
+    constant_cb(constant_arg, (uint8_t)jsCode, state);
+    return event;
+  }
+  
   return event;
 }
 
